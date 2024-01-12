@@ -6,7 +6,7 @@ libs = -lglfw3dll
 
 UTIL = -Wextra -Wall
 
-FILES = $(SRC)main.c $(SRC)/graphics/graphics.c $(SRC)/glad/glad.c
+FILES = $(SRC)main.c $(SRC)graphics/graphics.c $(SRC)glad/glad.c
 
 TARGET = network
 

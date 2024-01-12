@@ -2,7 +2,7 @@
 SRC = src/
 LIB = -Llib/
 INC = -Iinclude/
-libs = -lglfw3dll -ldl
+libs = -lglfw3dll
 
 UTIL = -Wextra -Wall
 

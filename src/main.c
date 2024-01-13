@@ -4,10 +4,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
-// #include <glad/glad.h>
-// #include <GLFW/glfw3.h>
 
-#include <../src/graphics/graphics.h>
+#include <../src/network/network.h>
+// #include <../src/graphics/graphics.h>
 
 // easier than dynamic arrays
 #define MAX_LAYER_NODES       2 
@@ -20,39 +19,6 @@
 //    THE NEURAL NETWORK
 //
 //----------------------------
-
-typedef struct v3{
-    int x, y, val;
-}v3;
-
-/*
- * Data structure for nodes
- * 
- * Holds the current node value,
- * It's weight for each output,
- * Each of its output nodes, and
- * Each of its input nodes
- */
-typedef struct Node Node;
-struct Node{
-    int val;                        // in is the input value of the node
-    uint8_t w[MAX_OUT_NODES];       // w is the weight of the node to the output node
-    Node *out[MAX_OUT_NODES];       // linked list for output nodes
-    Node *in[MAX_IN_NODES];         // linked list for input nodes
-};
-
-/*
- * A node layer
- *
- * Holds a pointer to each of the nodes in a given layer 
- * and a pointer to the next and previous layers
- */
-// typedef struct Layer Layer;
-// struct Layer{
-//     Node *nodes[MAX_LAYER_NODES];
-//     Layer *next;
-//     Layer *prev;
-// };
 
 // typedef struct Network{
 //     // node will be the input and the weight
@@ -70,22 +36,37 @@ struct Node{
 
 
 // Window initialization
-GLFWwindow *win = NULL;
+// GLFWwindow *win = NULL;
 
 
-int network(Node *in1, Node *in2);
-void TESTinitNode(Node *in1, Node *in2, Node *out1, Node *out2);
-void TESTGraph(Node *in1, Node *in2);
+// void TESTGraph(Node *in1, Node *in2, vertexObject *vo);
 
 int main(void){
-    time_t t;
-    srand((unsigned) time(&t));
 
-    win = graphicsInit(win, 1280, 720);
+    Layer layer = {0};
+    LayerInit(&layer, 2, 2);
+    printf("successfully initialized the layer\n");
+    LayerFree(&layer);
+    printf("successfully freed the layer\n");
 
-    Node in1, in2, out1, out2;
-    TESTinitNode(&in1, &in2, &out1, &out2);
-    TESTGraph(&in1, &in2);
+    // time_t t;
+    // srand((unsigned) time(&t));
+
+    // win = graphicsInit(win, WIDTH, HEIGHT);
+
+    // vertexObject vo = {0};
+    // vertexObjectInit_TEST(&vo);
+
+    // while(!glfwWindowShouldClose(win)){
+    //     glClear(GL_COLOR_BUFFER_BIT);
+
+        
+    //     TESTGraph(&in1, &in2, &vo);
+    //     glfwSwapBuffers(win);
+    //     glfwPollEvents();
+    // }
+
+    // glfwTerminate();
 
     // how to do first step
     // network(&in1, &in2);
@@ -93,62 +74,28 @@ int main(void){
     return 0;
 }
 
-/*
- * do the calculations for the current network
- *
- * in(#) corresponds to the input
- * w(#) corresponds to the weight of each input 
- */
-int network(Node *in1, Node *in2){
-    in1->out[0]->val = in1->val*in1->w[0] + in2->val*in2->w[0];
-    in1->out[1]->val = in1->val*in1->w[1] + in2->val*in2->w[1];
-    if (in1->out[0]->val > in1->out[1]->val){
-        return 1;
-    } else{
-        return 0;
-    }
-}
+// void TESTGraph(Node *in1, Node *in2, vertexObject *vo){
+//     graphOutline(vo);
 
-/*
- * initializing nodes for testing purposes **VERY EARLY VERSION**
- */
-void TESTinitNode(Node *in1, Node *in2, Node *out1, Node *out2){
-    in1->out[0] = out1;
-    in1->out[1] = out2;
-    in1->w[0] = 4;
-    in1->w[1] = 6;
-    // for(int i = 0; i < MAX_OUT_NODES; i++){
-        // in1->w[i] = (uint8_t)rand() % 100;
-    // }
-
-    in2->out[0] = out1;
-    in2->out[1] = out2;
-    // for(int i = 0; i < MAX_OUT_NODES; i++){
-    //     in2->w[i] = (uint8_t)rand() % 100;
-    // }
-    in2->w[0] = 8;
-    in2->w[1] = 2;
-}
-
-void TESTGraph(Node *in1, Node *in2){
-    // int as[100][100] = {0}; // for calculation purposes
-    int pass = 0;
-    int fail = 0;
-    for(int x = 0; x < 100; x++){
-        for(int y = 0; y < 100; y++){
-            in1->val = x;
-            in2->val = y;
-            int a = network(in1, in2);
+//     int pass = 0;
+//     int fail = 0;
+//     for(int x = 0; x < WIDTH; x++){
+//         for(int y = 0; y < HEIGHT; y++){
+//             in1->val = x;
+//             in2->val = y;
+//             int a = network(in1, in2);
             
-            // a = 1, therefore pass
-            if(a == 1){
-                pass++;
-            } 
-            // a = 2, therefore fail
-            else{
-                fail++;
-            }
-        }
-    }
-    printf("PASSED: %i, FAILED: %i\n", pass, fail);
-}
+//             // a = 1, therefore pass
+//             if(a == 1){
+//                 // pixelDraw(x, y, 0.0f, 1.0f, 0.0f);
+//                 pass++;
+//             } 
+//             // a = 2, therefore fail
+//             else{
+//                 // pixelDraw(x, y, 1.0f, 0.0f, 0.0f);
+//                 fail++;
+//             }
+//         }
+//     }
+//     printf("PASSED: %i, FAILED: %i\n", pass, fail);
+// }

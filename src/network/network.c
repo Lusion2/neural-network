@@ -57,3 +57,18 @@ double *LayerCalcOutputs(Layer *layer, double *inputs){
     inputs = wInputs;
     return inputs;
 }
+
+void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes){
+    network->numLayers = layers;
+    network->layers = (Layer*)malloc(sizeof(Layer)*layers);
+    for(int i = 0; i < layers; i++){
+        LayerInit(&network->layers[i], layerSizes[i], layerSizes[i+1]);
+    }
+}
+
+void NetworkFree(NeuralNetwork *network){
+    for(int i = 0; i < network->numLayers; i++){
+        LayerFree(&network->layers[i]);
+    }
+    free(network->layers);
+}

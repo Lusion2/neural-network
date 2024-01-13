@@ -34,6 +34,15 @@ struct Layer{
 };
 
 /*
+ * Network structure made up of node layers
+ */
+typedef struct network NeuralNetwork;
+struct network{
+    Layer *layers;
+    int numLayers;
+};
+
+/*
  * function for initializing a layer
  *
  * layer: a pointer to the layer being initialized
@@ -52,5 +61,22 @@ void LayerFree(Layer *layer);
  */
 double *LayerCalcOutputs(Layer *layer, double *inputs);
 
+/*
+ * Initializes a network with a specified amount of layers
+ *
+ * network: a pointer the the network being initialized
+ * layers: the number of layers in the network
+ * layerSizes: stored as [in, out] of each layer
+ * 
+ * Note, in layerSizes, [in1, out1] for layer 1, [in2 (the same as out1), out2], 
+ * in 2 is the same as out1 in this case
+ */
+void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes);
+
+/*
+ * Frees the dynamic memory allocated for the network as well as freeing the 
+ * dynamic memory in each layer
+ */
+void NetworkFree(NeuralNetwork *network);
 
 #endif // __AP_COMPSCI_AI_NETWORK_H

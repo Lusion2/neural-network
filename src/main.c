@@ -8,31 +8,12 @@
 #include <../src/network/network.h>
 // #include <../src/graphics/graphics.h>
 
-// easier than dynamic arrays
-#define MAX_LAYER_NODES       2 
-#define MAX_IN_NODES    2
-#define MAX_OUT_NODES    2
-
 //----------------------------
 //
 //  INITIAL STRUCTURES FOR
 //    THE NEURAL NETWORK
 //
 //----------------------------
-
-// typedef struct Network{
-//     // node will be the input and the weight
-//     Node in[MAX_NODES];
-//     Node out[MAX_NODES];
-// } Network;
-
-// prototype will have 2 inputs and 2 outputs
-// the name of the weights here are weight(inputnode),(outputnode)
-// output 1 = (in1*weight1,1) + (in2*weight2,1)
-// output 2 = (in1*weight1,2) + (in2*weight2,2)
-
-// out1 = pass
-// out2 = fail
 
 
 // Window initialization
@@ -43,20 +24,7 @@
 
 int main(void){
 
-    Layer layer = {0};
-    LayerInit(&layer, 2, 2);
-
-    double *inputs = (double*)malloc(2*sizeof(double));
-    inputs[0] = 2;
-    inputs[1] = 5;
-
-    // test the layerCalcOutputs
-    LayerCalcOutputs(&layer, inputs);
-    // for(int i = 0; i < 2; i++){
-    //     printf("%f\n", inputs[i]);
-    // }
-
-    LayerFree(&layer);
+    
 
     // time_t t;
     // srand((unsigned) time(&t));

@@ -47,5 +47,10 @@ void LayerInit(Layer *layer, int in, int out);
  */
 void LayerFree(Layer *layer);
 
+/*
+ * Calculates the outputs for a given layer
+ */
+double *LayerCalcOutputs(Layer *layer, double *inputs);
+
 
 #endif // __AP_COMPSCI_AI_NETWORK_H

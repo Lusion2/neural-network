@@ -45,6 +45,17 @@ int main(void){
 
     Layer layer = {0};
     LayerInit(&layer, 2, 2);
+
+    double *inputs = (double*)malloc(2*sizeof(double));
+    inputs[0] = 2;
+    inputs[1] = 5;
+
+    // test the layerCalcOutputs
+    LayerCalcOutputs(&layer, inputs);
+    // for(int i = 0; i < 2; i++){
+    //     printf("%f\n", inputs[i]);
+    // }
+
     LayerFree(&layer);
 
     // time_t t;

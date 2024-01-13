@@ -45,9 +45,7 @@ int main(void){
 
     Layer layer = {0};
     LayerInit(&layer, 2, 2);
-    printf("successfully initialized the layer\n");
     LayerFree(&layer);
-    printf("successfully freed the layer\n");
 
     // time_t t;
     // srand((unsigned) time(&t));

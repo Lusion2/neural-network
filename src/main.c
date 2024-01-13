@@ -24,7 +24,11 @@
 
 int main(void){
 
-    
+    NeuralNetwork network = {0};
+    int layerSize[] = {2, 3, 2};
+    NetworkInit(&network, 2, layerSize);
+
+    NetworkFree(&network);
 
     // time_t t;
     // srand((unsigned) time(&t));

@@ -32,10 +32,6 @@ void LayerFree(Layer *layer){
 double *LayerCalcOutputs(Layer *layer, double *inputs){
     double *wInputs = (double*)malloc(sizeof(double)*layer->nodesOut); // weighted inputs
     
-    printf("Given inputs:\n");
-    for(int i = 0; i < 2; i++){
-        printf("\t%f\n", inputs[i]);
-    }
     // iterate through each outgoing node
     for(int out = 0; out < layer->nodesOut; out++){
         // initialize a weighted input to the bias value
@@ -48,12 +44,7 @@ double *LayerCalcOutputs(Layer *layer, double *inputs){
         // set the corresponding spot in the wInputs array to the weighted input we just calculated
         wInputs[out] = wInput;
     }
-    printf("Weighted inputs:\n");
-    for(int i = 0; i < 2; i++){
-        printf("\t%f\n", wInputs[i]);
-    }
 
-    free(inputs);
     inputs = wInputs;
     return inputs;
 }
@@ -71,4 +62,22 @@ void NetworkFree(NeuralNetwork *network){
         LayerFree(&network->layers[i]);
     }
     free(network->layers);
+}
+
+double *NetworkCalcOutputs(NeuralNetwork *network, double *inputs){
+    printf("Given inputs:\n");
+    for(int i = 0; i < 2; i++){
+        printf("\t%f\n", inputs[i]);
+    }
+    // iterate through each layer and calc it's outputs
+    for(int i = 0; i < network->numLayers; i++){
+        inputs = LayerCalcOutputs(&network->layers[i], inputs);
+    }
+
+    printf("Outputs:\n");
+    for(int i = 0; i < 2; i++){
+        printf("\t%f\n", inputs[i]);
+    }
+
+    return inputs;
 }

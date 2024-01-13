@@ -11,10 +11,12 @@
 #include <stdbool.h>
 #include <math.h>
 
-/******************
- * DATA STRUCTURES FOR THE NETWORK
+/****************************
  *
- ******************/
+ *    DATA STRUCTURES AND 
+ * FUNCTIONS FOR THE NETWORK
+ *
+ ****************************/
 
 /*
  * Base layer structures
@@ -78,5 +80,10 @@ void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes);
  * dynamic memory in each layer
  */
 void NetworkFree(NeuralNetwork *network);
+
+/*
+ * Runs the calculations for the entire network and returns the weighted inputs
+ */
+double *NetworkCalcOutputs(NeuralNetwork *network, double *inputs);
 
 #endif // __AP_COMPSCI_AI_NETWORK_H

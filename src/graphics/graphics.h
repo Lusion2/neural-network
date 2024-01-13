@@ -13,22 +13,14 @@
 #define WIDTH2      WIDTH/2                 // half width
 #define HEIGHT2     HEIGHT/2                // half height
 
-// base shaders
-static const char *vertexShaderSource = "( \
-    #version 330 core \
-    layout (location = 0) in vec2 position; \
-    void main() { \
-        gl_Position = vec4(position, 0.0, 1.0); \
-    } \
-)";
-
-static const char *fragmentShaderSource = "( \
-    #version 330 core \
-    out vec4 color; \
-    void main() { \
-        color = vec4(1.0, 1.0, 1.0, 1.0); // White color \
-    } \
-)";
+/*
+ * Shader structure, only variable is an ID, 
+ * this structure is made to be explicit
+*/
+typedef struct Shader Shader;
+struct Shader{
+    unsigned int ID;
+};
 
 /*
  * abstract class for holding VAO, VBO, and shaders
@@ -36,17 +28,25 @@ static const char *fragmentShaderSource = "( \
 typedef struct vertexObject vertexObject;
 struct vertexObject{
     // vertex objects
-    GLuint VBO, VAO;
+    GLuint VBO, VAO, EBO;
 
     // base shader program
-    GLuint shaderProg;
+    Shader shader;
 };
+
+
+/*
+ * Creates a shader program using given shader files
+ *
+ * vsPath: vertex shader file
+ * fsPath: fragment shader file
+ */
+void ShaderInit(Shader *shader, const char *vsPath, const char *fsPath);
 
 /*
  * initializes a basic vertexObject as shown above
  */
-vertexObject *vertexObjectInit_TEST(vertexObject *win);
-
+vertexObject *vertexObjectInit(vertexObject *win);
 
 /*
  * initializes GLFW and returns the pointer to a window

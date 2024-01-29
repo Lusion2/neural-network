@@ -41,6 +41,7 @@ struct Layer{
 typedef struct network NeuralNetwork;
 struct network{
     Layer *layers;
+    double *outputs;
     int numLayers;
 };
 
@@ -84,6 +85,11 @@ void NetworkFree(NeuralNetwork *network);
 /*
  * Runs the calculations for the entire network and returns the weighted inputs
  */
-double *NetworkCalcOutputs(NeuralNetwork *network, double *inputs);
+void NetworkCalcOutputs(NeuralNetwork *network, double *inputs);
+
+/*
+ * Print the outputs to the console
+ */
+void NetworkPrintOutputs(NeuralNetwork *network);
 
 #endif // __AP_COMPSCI_AI_NETWORK_H

@@ -6,7 +6,7 @@
 #include <time.h>
 
 #include <../src/network/network.h>
-#include <../src/graphics/graphics.h>
+// #include <../src/graphics/graphics.h>
 
 //----------------------------
 //
@@ -17,41 +17,42 @@
 
 
 // Window initialization
-GLFWwindow *win = NULL;
+// GLFWwindow *win = NULL;
 
 
-void TESTGraph(vertexObject *vo);
+// void TESTGraph(vertexObject *vo);
 
 int main(void){
 
     NeuralNetwork network = {0};
-    int layerSize[] = {2, 3, 2};
+    int layerSize[] = {4, 3, 10};
     NetworkInit(&network, 2, layerSize);
     
-    double inputs[] = {3, 7};
+    double inputs[] = {8, 6, 3, 12};
 
     NetworkCalcOutputs(&network, inputs);
+    NetworkPrintOutputs(&network);
 
     NetworkFree(&network);
 
     // time_t t;
     // srand((unsigned) time(&t));
 
-    win = graphicsInit(win, WIDTH, HEIGHT);
+    // win = graphicsInit(win, WIDTH, HEIGHT);
 
-    vertexObject vo = {0};
-    vertexObjectInit(&vo);
+    // vertexObject vo = {0};
+    // vertexObjectInit(&vo);
 
-    while(!glfwWindowShouldClose(win)){
-        glClear(GL_COLOR_BUFFER_BIT);
+    // while(!glfwWindowShouldClose(win)){
+    //     glClear(GL_COLOR_BUFFER_BIT);
 
         
-        TESTGraph(&vo);
-        glfwSwapBuffers(win);
-        glfwPollEvents();
-    }
+    //     TESTGraph(&vo);
+    //     glfwSwapBuffers(win);
+    //     glfwPollEvents();
+    // }
 
-    glfwTerminate();
+    // glfwTerminate();
 
     // how to do first step
     // network(&in1, &in2);
@@ -59,6 +60,6 @@ int main(void){
     return 0;
 }
 
-void TESTGraph(vertexObject *vo){
-    graphOutline(vo);
-}
+// void TESTGraph(vertexObject *vo){
+//     graphOutline(vo);
+// }

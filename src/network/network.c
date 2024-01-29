@@ -52,6 +52,7 @@ double *LayerCalcOutputs(Layer *layer, double *inputs){
 void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes){
     network->numLayers = layers;
     network->layers = (Layer*)malloc(sizeof(Layer)*layers);
+    network->outputs = (double*)malloc(sizeof(double)*layers);
     for(int i = 0; i < layers; i++){
         LayerInit(&network->layers[i], layerSizes[i], layerSizes[i+1]);
     }
@@ -62,11 +63,12 @@ void NetworkFree(NeuralNetwork *network){
         LayerFree(&network->layers[i]);
     }
     free(network->layers);
+    free(network->outputs);
 }
 
-double *NetworkCalcOutputs(NeuralNetwork *network, double *inputs){
+void NetworkCalcOutputs(NeuralNetwork *network, double *inputs){
     printf("Given inputs:\n");
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < network->layers[0].nodesIn; i++){
         printf("\t%f\n", inputs[i]);
     }
     // iterate through each layer and calc it's outputs
@@ -74,10 +76,12 @@ double *NetworkCalcOutputs(NeuralNetwork *network, double *inputs){
         inputs = LayerCalcOutputs(&network->layers[i], inputs);
     }
 
-    printf("Outputs:\n");
-    for(int i = 0; i < 2; i++){
-        printf("\t%f\n", inputs[i]);
-    }
+    network->outputs = inputs;
+}
 
-    return inputs;
+void NetworkPrintOutputs(NeuralNetwork *network){
+    printf("Outputs:\n");
+    for(int i = 0; i < network->layers[network->numLayers-1].nodesOut; i++){
+        printf("\t%f\n", network->outputs[i]);
+    }
 }

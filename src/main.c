@@ -1,3 +1,6 @@
+/*
+ * Code by Treyse Miller (Lusion2 on Github)
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -5,7 +8,7 @@
 #include <math.h>
 #include <time.h>
 
-#include <../src/network/network.h>
+#include "../src/network/network.h"
 // #include <../src/graphics/graphics.h>
 
 //----------------------------
@@ -24,14 +27,26 @@
 
 int main(void){
 
-    NeuralNetwork network = {0};
-    int layerSize[] = {4, 3, 10};
-    NetworkInit(&network, 2, layerSize);
-    
-    double inputs[] = {8, 6, 3, 12};
+    time_t t;
+    srand((unsigned)time(&t));
 
-    NetworkCalcOutputs(&network, inputs);
-    NetworkPrintOutputs(&network);
+    NeuralNetwork network = {0};
+    int layerSize[] = {2, 3, 5, 3, 2, 3};
+    double expectedOutputs[] = {0.0f, 0.5f, 1.0f};
+    double inputs[] = {2.0f, 6.0f};
+
+    NetworkInit(&network, 6, layerSize, expectedOutputs, inputs);
+
+    printf("Given inputs:\n");
+    for(int i = 0; i < layerSize[0]; i++){
+        printf("\t%f\n", inputs[i]);
+    }
+
+    
+    Learn(&network, 500.0f, 10000);
+
+    
+    //NetworkPrintOutputs(&network);
 
     NetworkFree(&network);
 

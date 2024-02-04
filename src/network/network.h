@@ -30,9 +30,12 @@
  */
 typedef struct Layer Layer;
 struct Layer{
-    int nodesIn, nodesOut;  // The number of nodes in and nodes out
-    double **weights;       // 2D array of each of the nodes' weights
-    double *biases;         // The biases for each weighted output
+    int nodesIn, nodesOut;      // The number of nodes in and nodes out
+    double **weights;           // 2D array of each of the nodes' weights
+    double *biases;             // The biases for each weighted output
+    double **gradientDescentW;  // The difference a small change in the weights makes to the cost
+    double *gradientDescentB;   // The difference a small change in the biases makes to the cost
+    double *vals;                 // value at the node
 };
 
 /*
@@ -40,9 +43,13 @@ struct Layer{
  */
 typedef struct network NeuralNetwork;
 struct network{
-    Layer *layers;
-    double *outputs;
     int numLayers;
+    Layer *layers;
+    int *layerSizes;
+    double *inputs;
+    double *outputs;
+    double *expectedOutputs;
+    double outputCost;
 };
 
 /*
@@ -68,13 +75,16 @@ double *LayerCalcOutputs(Layer *layer, double *inputs);
  * Initializes a network with a specified amount of layers
  *
  * network: a pointer the the network being initialized
- * layers: the number of layers in the network
+ * 
+ * layers: the number of layers in the network NOTE it
+ * is the number of elements in the layerSizes array - 1
+ * 
  * layerSizes: stored as [in, out] of each layer
  * 
  * Note, in layerSizes, [in1, out1] for layer 1, [in2 (the same as out1), out2], 
  * in 2 is the same as out1 in this case
  */
-void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes);
+void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes, double *expectedOutputs, double *inputs);
 
 /*
  * Frees the dynamic memory allocated for the network as well as freeing the 
@@ -84,12 +94,20 @@ void NetworkFree(NeuralNetwork *network);
 
 /*
  * Runs the calculations for the entire network and returns the weighted inputs
+ *
+ * inputs should be an array (dynamic or static) of the size corresponding to 
+ * the first layer size when calling NetworkInit 
  */
-void NetworkCalcOutputs(NeuralNetwork *network, double *inputs);
+void NetworkCalcOutputs(NeuralNetwork *network);
 
 /*
  * Print the outputs to the console
  */
 void NetworkPrintOutputs(NeuralNetwork *network);
+
+/*
+ * Start the neural network and have it learn on its own!
+*/
+void Learn(NeuralNetwork *network, double learnRate, int iterations);
 
 #endif // __AP_COMPSCI_AI_NETWORK_H

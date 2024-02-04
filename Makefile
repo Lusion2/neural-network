@@ -2,9 +2,9 @@
 SRC = src/
 LIB = -Llib/
 INC = -Iinclude/
-libs = -lglfw3dll
+libs = #-lglfw3dll
 
-UTIL = -Wextra -Wall -fsanitize=address
+UTIL = -Wextra -Wall -fsanitize=address -lm -ldl
 
 FILES = $(SRC)main.c $(SRC)network/network.c #$(SRC)graphics/graphics.c $(SRC)glad/glad.c
 

@@ -4,7 +4,7 @@ LIB = -Llib/
 INC = -Iinclude/
 libs = -lglfw3dll
 
-UTIL = -Wextra -Wall #-fsanitize=address
+UTIL = -Wextra -Wall -fsanitize=address
 
 FILES = $(SRC)main.c $(SRC)network/network.c #$(SRC)graphics/graphics.c $(SRC)glad/glad.c
 

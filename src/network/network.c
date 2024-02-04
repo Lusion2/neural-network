@@ -45,14 +45,12 @@ double *LayerCalcOutputs(Layer *layer, double *inputs){
         wInputs[out] = wInput;
     }
 
-    inputs = wInputs;
-    return inputs;
+    return wInputs;
 }
 
 void NetworkInit(NeuralNetwork *network, int layers, int *layerSizes){
     network->numLayers = layers;
     network->layers = (Layer*)malloc(sizeof(Layer)*layers);
-    network->outputs = (double*)malloc(sizeof(double)*layers);
     for(int i = 0; i < layers; i++){
         LayerInit(&network->layers[i], layerSizes[i], layerSizes[i+1]);
     }

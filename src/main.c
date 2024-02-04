@@ -43,7 +43,7 @@ int main(void){
     }
 
     
-    Learn(&network, 500.0f, 10000);
+    Learn(&network, 100.0f, 10000);
 
     
     //NetworkPrintOutputs(&network);
